@@ -1,11 +1,16 @@
-const express = require('express');
-const app = express()
+const express = require("express");
+const connectDatabase = require("./database/db")
+const router = require("./routes/index")
+var cors = require('cors')
+const app = express();
+const PORT =8000;
 
-const PORT =8080;
+app.use(express.json());
+app.use(express.urlencoded({extended:false})) 
+app.use(cors())
+app.use(router)
 
-app.get("/", (req, res,next)=>{
-    res.send("Hello")
-})
-app.listen(PORT, (req, res)=>{
-    console.log(`server is listening on the PORT ${PORT}`)
+connectDatabase()
+app.listen(PORT,()=>{
+    console.log(`Server is Listening on PORT ${PORT}`)
 })
