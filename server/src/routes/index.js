@@ -6,6 +6,7 @@ const input = require("./Task-routes/InputTask")
 const EditTask = require("./Task-routes/EditTask")
 const getAllTheTask = require("./Task-routes/GetAllTheTask")
 const DeleteTask = require("./Task-routes/DeleteTask")
+const error = require("./Home-route/Error")
 
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.use("/input", input)
 router.use("/EditTask", EditTask)
 router.use("/getAllTheTask", getAllTheTask)
 router.use("/DeleteTask", DeleteTask)
+router.use("*",error)
 
 
 module.exports = router;
