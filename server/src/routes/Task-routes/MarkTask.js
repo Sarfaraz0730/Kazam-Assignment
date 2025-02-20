@@ -17,14 +17,14 @@ router.patch("/:taskId", verify, async (req, res) => {
     }
 
     try {
-        // Check if the task exists and belongs to the authenticated user
+     
         const task = await Task.findOne({ _id: taskId, userId });
 
         if (!task) {
             return res.status(404).json({ message: "Task not found or you don't have permission to modify this task" });
         }
 
-        // Update task status
+        
         task.status = status.toLowerCase();
         task.updatedAt = new Date();
 
