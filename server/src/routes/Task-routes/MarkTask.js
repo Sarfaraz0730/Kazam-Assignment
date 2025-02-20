@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.patch("/:taskId", verify, async (req, res) => {
     const { taskId } = req.params;
+    console.log("task")
    
     const userId = req.decoded._id; 
     const { status } = req.body; 
