@@ -28,7 +28,9 @@ const validateTask = (task) => {
     const schema = Joi.object({
         title: Joi.string().min(3).max(100).required(),
         description: Joi.string().min(5).max(500).required(),
-        status: Joi.string().valid('pending', 'in-progress', 'completed').required(),
+        // status: Joi.string().valid('pending', 'in-progress', 'completed').required(),
+        status: Joi.string().valid('pending', 'in-progress', 'completed').insensitive().required(),
+
         dueDate: Joi.date().required(),
         userId: Joi.string().hex().length(24).required()
     });

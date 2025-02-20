@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const UserModel = require("../../model/UserModel/UserModel");
+const {UserModel} = require("../../model/UserModel/UserModel");
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
 const verify = require("../../helper/verify")
 
-const SECRET_KEY = "helloMyNameisSarfarazIamTheWorldBestDeveloper";
-
+const SECRET_KEY = "this is secret key";
 router.post("/",async (req, res) => {
    
     const data = req.body;
@@ -35,7 +34,7 @@ router.post("/",async (req, res) => {
                     name: userExist.name,
                     email: userExist.email,
                     password: userExist.password,
-                 
+                  
                 };
                console.log("userObj : ",userObject)
                 var token = jwt.sign(userObject, SECRET_KEY);
