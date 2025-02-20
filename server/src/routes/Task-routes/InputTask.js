@@ -4,7 +4,7 @@ const { Task } = require("../../model/TaskModel/TaskModel");
 
 const router = express.Router();
 
-router.post("/", async (req, res, next) => {
+router.post("/", verify, async (req, res, next) => {
     console.log("Data: ", req.body);
 
     const { title, status } = req.body;
