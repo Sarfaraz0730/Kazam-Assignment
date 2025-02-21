@@ -1,16 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Registration from './pages/Registration'
+import  Login from './pages/Login'
+import  AddTaskInput  from "./pages/AddTaskInput";
+
+const App = () => {
   return (
-    <>
-      Hi
-    </>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<Registration />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/add-task/:userId" element={<AddTaskInput />} /> 
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
+

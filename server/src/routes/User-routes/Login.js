@@ -39,7 +39,7 @@ router.post("/",async (req, res) => {
                console.log("userObj : ",userObject)
                 var token = jwt.sign(userObject, SECRET_KEY);
                 console.log("token:", token);
-                return res.send({token:token,message:"login successful"});
+                return res.send({token:token,message:"login successful", "userId":userExist._id});
             } else {
                 return res.send("Invalid password");
             }

@@ -1,39 +1,37 @@
-const mongoose = require('mongoose');
-const Joi = require('joi');
+const mongoose = require("mongoose");
+const Joi = require("joi");
 
-// Task schema definition
-const taskSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    status: { 
-        type: String, 
-        enum: ['pending', 'in-progress', 'completed'], 
-        default: 'pending' 
+
+const taskSchema = new mongoose.Schema(
+    {
+        title: { type: String, required: true, trim: true, minlength: 3, maxlength: 100 },
+        status: {
+            type: String,
+            enum: ["pending", "completed"],
+            default: "pending",
+        },
+        dueDate: { type: Date, required: false },
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
     },
-    dueDate: { type: Date, required: true },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
-    userId: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User', 
-        required: true 
-    }
-});
+    { timestamps: true } 
+);
 
-// Task model
-const Task = mongoose.model('Task', taskSchema);
 
-// Joi validation schema
+const Task = mongoose.model("Task", taskSchema);
+
+
 const validateTask = (task) => {
     const schema = Joi.object({
         title: Joi.string().min(3).max(100).required(),
-        description: Joi.string().min(5).max(500).required(),
-        // status: Joi.string().valid('pending', 'in-progress', 'completed').required(),
-        status: Joi.string().valid('pending', 'in-progress', 'completed').insensitive().required(),
-
-        dueDate: Joi.date().required(),
-        userId: Joi.string().hex().length(24).required()
+        status: Joi.string().valid("pending", "completed").insensitive(), 
+        dueDate: Joi.date(),
+        userId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(), 
     });
+
     return schema.validate(task);
 };
 

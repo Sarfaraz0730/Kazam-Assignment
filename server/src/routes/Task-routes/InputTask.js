@@ -4,35 +4,48 @@ const { Task } = require("../../model/TaskModel/TaskModel");
 
 const router = express.Router();
 
-router.post("/", verify, async (req, res, next) => {
-    console.log("Data: ", req.body);
+router.post("/", verify, async (req, res) => {
+    console.log("Received Task Data:", req.body);
 
-    const { title, status } = req.body;
+    const { title } = req.body;
+    const userId = req.decoded._id; 
+    console.log("User id: ", userId)
 
-    // Validation
-    if (!title) {
-        return res.status(400).send("Please enter the Task Title");
-    } 
-    if (!status) {
-        return res.status(400).send("Please select the status");
+   
+    if (!title || title.trim() === "") {
+        return res.status(400).json({ message: "Please enter the Task Title" });
     }
 
-    // Convert status to lowercase to match enum
-    req.body.status = status.toLowerCase();
+    if (!userId) {
+        return res.status(400).json({ message: "User ID is required" });
+    }
 
     try {
-        const taskAlreadyExist = await Task.findOne({ title });
+        
+        const taskAlreadyExist = await Task.findOne({ 
+            title: { $regex: new RegExp(`^${title}$`, "i") },
+            userId: userId, 
+        });
+
         if (taskAlreadyExist) {
-            return res.status(400).send("This task is already in the queue");
-        } else {
-            const saveTask = await Task.create(req.body);
-            return res.status(201).json({ message: "Task created successfully", saveTask });
+            return res.status(400).json({ message: "This task is already in the queue" });
         }
+
+       
+        const newTask = new Task({
+            title: title.trim(),
+            status: "pending", // Default status
+            userId, 
+        });
+
+        
+        await newTask.save();
+
+        return res.status(201).json({ message: "Task created successfully", task: newTask });
     } catch (error) {
         console.error("Error creating task:", error);
-        res.status(500).send("Internal Server Error");
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 });
-
 
 module.exports = router;

@@ -11,7 +11,7 @@ const userSchema = new Schema({
 
 const UserModel = mongoose.model("User", userSchema);
 
-// Joi validation schema
+
 const validateUser = (user) => {
     const schema = Joi.object({
         username: Joi.string().min(3).max(30).required(),
