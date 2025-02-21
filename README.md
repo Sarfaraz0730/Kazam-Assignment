@@ -4,7 +4,7 @@ This is the backend for a Task Management application, built using Node.js, Expr
 
 ## 🌐 Deployed API Base URL
 
-[Task Management API on Render](https://kazam-assignment.onrender.com)
+https://kazam-assignment.onrender.com
 
 ## 🛠️ Project Structure
 
@@ -84,6 +84,11 @@ You can use tools like Postman or Thunder Client to test the endpoints.
 - **index.js**: Entry point for the server.
 
 =
+For FrontEnd
+cd Client
+run command to start the prontend project
+
+npm run dev
 
 
 

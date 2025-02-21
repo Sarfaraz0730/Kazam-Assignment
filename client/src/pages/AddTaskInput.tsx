@@ -99,7 +99,7 @@ const TaskManager = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
       <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-bold text-gray-700 text-left mb-4">Task Manager</h2>
+        <h2 className="text-xl font-bold text-gray-700 text-left mb-4">Kazam Task Manager</h2>
 
         {/* Task Input */}
         <div className="flex gap-2 mb-4">
